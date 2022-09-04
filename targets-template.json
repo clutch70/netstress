@@ -1,0 +1,69 @@
+{
+    "sites":  [
+                  {
+                      "siteName":  "Google",
+                      "uri":  "https://www.google.com",
+                      "success":  0,
+                      "failure":  0,
+                      "goodContent":  "google"
+                  },
+                  {
+                      "siteName":  "Yahoo!",
+                      "uri":  "https://www.yahoo.com",
+                      "success":  0,
+                      "failure":  0,
+                      "goodContent":  "yahoo"
+                  }
+              ],
+    "files":  [
+                  {
+                      "fileName":  "book.xlsx",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  },
+                  {
+                      "fileName":  "book2.xlsx",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  },
+                  {
+                      "fileName":  "logo.png",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  },
+                  {
+                      "fileName":  "lorem.docx",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  },
+                  {
+                      "fileName":  "lorem2.docx",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  },
+                  {
+                      "fileName":  "new.txt",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  },
+                  {
+                      "fileName":  "lorem2 - Copy.docxx",
+                      "copyUpSuccess":  0,
+                      "copyUpFailure":  0,
+                      "copyDownSuccess":  0,
+                      "copyDownFailure":  0
+                  }
+              ]
+}
