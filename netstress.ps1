@@ -17,11 +17,12 @@
 
 
 
-param ($sharedFolder="none", $durationMinutes=5, [Switch]$Verbose=$False, [Switch]$updateFiles)
+param ($sharedFolder="none", $durationMinutes=30, [Switch]$Verbose=$False, [Switch]$updateFiles, $testSite="https://www.google.com", [Switch]$getSiteContent)
 
 $templateTargets = "targets-template.json"
 $targetsFile = "targets.json"
 $files = Get-ChildItem $PSScriptRoot\files
+#$durationInteger = $durationMinutes
 $durationMinutes = New-TimeSpan -Seconds $durationMinutes
 IF (Test-Path -Path $PSScriptRoot\$targetsFile)
 {
@@ -81,8 +82,10 @@ Function copyFilesUp
 {
     #Write-Output "starting copyFilesUp"
     param($targets)
+
     foreach ($i in $targets.files)
     {
+
         #Write-Output "working through this record"
         #$i
         $file = $i.fileName
@@ -102,8 +105,10 @@ Function copyFilesUp
 Function copyFilesDown
 {
     param($targets)
+
     foreach ($i in $targets.files)
     {
+
         $file = $i.fileName
         Try{
             Copy-Item $sharedFolder\$file $env:TEMP -Force -ErrorAction Stop
@@ -127,9 +132,16 @@ Function removeFiles
 }
 Function testSites{
     param($targets)
+    #$percent = (($remaining / $durationInteger) * 100)
+    #Write-Output ([int]$durationMinutes - [int]$remaining) / $durationInteger
+    #$remaining
+    #$durationMinutes
+    #Write-Output "Percent complete is $percent"
+
     #iterate through each site definition
     foreach ($i in $targets.sites)
     {
+        #Write-Progress -Activity Break -Status "$remaining seconds remaining..." -SecondsRemaining $remaining
         #$done = $false
         IF ($verbose)
         {
@@ -264,8 +276,27 @@ IF ($updateFiles)
     exit
 }
 
+IF ($getSiteContent)
+{
+    $req = Invoke-WebRequest -UseBasicParsing -UserAgent ([Microsoft.PowerShell.Commands.PSUserAgent]::FireFox) -URI $testSite
+    $req.content
+    exit
+}
+
+Function webLoop
+{
+    param($targets)
+    while ($sw.elapsed -lt $durationMinutes)
+{
+
+    testSites($targets)
+    return $targets
+}
+}
+
 $sw = [Diagnostics.stopwatch]::StartNew()
 Write-Output "Running..."
+#$webJob = Start-Job -ScriptBlock {webLoop($targets)}
 while ($sw.elapsed -lt $durationMinutes)
 {
     IF (!($sharedFolder -eq "none"))
@@ -276,10 +307,11 @@ while ($sw.elapsed -lt $durationMinutes)
     }
     testSites($targets)
 }
+#start-sleep 5 -Seconds
 
-#$targets.sites.success
-#$targets.files.copyUpSuccess
-#$targets.files.copyDownSuccess
+#$results = Receive-Job -Job $webJob
+#$results
+
 IF (!($sharedFolder -eq "none"))
 {
     reportFiles($targets)
