@@ -341,6 +341,7 @@ IF (!($sharedFolder -eq "none"))
 }
 reportSites($targets)
 
-Write-Output 'Ran for $durationInteger minutes.'
+Write-Output 'Ran for minutes' $durationInteger
+
 exit
 
