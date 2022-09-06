@@ -23,7 +23,21 @@ $templateTargets = "targets-template.json"
 $targetsFile = "targets.json"
 IF (!($sharedFolder -eq 'none'))
 {
-    $files = Get-ChildItem $PSScriptRoot\files
+    IF (Test-Path $PSScriptRoot\files)
+    {
+        $files = Get-ChildItem $PSScriptRoot\files
+    }ELSE
+    {
+        New-Item -Path $env:TEMP\files -ItemType Directory -Force
+        Invoke-WebRequest -UseBasicParsing -Uri https://github.com/clutch70/netstress/raw/master/files/book.xlsx -OutFile $env:TEMP\files\book.xlsx
+        Invoke-WebRequest -UseBasicParsing -Uri https://github.com/clutch70/netstress/raw/master/files/book2.xlsx -OutFile $env:TEMP\files\book2.xlsx
+        Invoke-WebRequest -UseBasicParsing -Uri https://github.com/clutch70/netstress/raw/master/files/lorem.docx -OutFile $env:TEMP\files\lorem.docx
+        Invoke-WebRequest -UseBasicParsing -Uri 'https://github.com/clutch70/netstress/raw/master/files/lorem2 - Copy.docxx' -OutFile '$env:TEMP\files\lorem2 - Copy.docxx'
+        Invoke-WebRequest -UseBasicParsing -Uri https://github.com/clutch70/netstress/raw/master/files/lorem2.docx -OutFile $env:TEMP\files\lorem2.docx
+        Invoke-WebRequest -UseBasicParsing -Uri https://github.com/clutch70/netstress/raw/master/files/new.txt -OutFile $env:TEMP\files\new.txt
+        $files = Get-ChildItem $env:TEMP\files
+    }
+
 }
 
 #$durationInteger = $durationMinutes
