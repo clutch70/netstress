@@ -259,6 +259,8 @@ Function reportFiles
         $totalShareAttempts = $copyUpAttempts + $copyDownAttempts
         Write-Output "Total number of attempts: $totalShareAttempts"
         Write-Output "`n"
+        Write-Output 'Ran for $durationInteger minutes.'
+        Write-Output "`n"
     }
 }
 
@@ -285,6 +287,8 @@ Function reportSites
         $rate = ($success / $attempts) * 100
         Write-Output "Site Access Success Rate: $rate%"
         Write-Output "Total number of attempts: $attempts"
+        Write-Output "`n"
+        Write-Output 'Ran for $durationInteger minutes.'
         Write-Output "`n"
     }
 }
@@ -341,4 +345,4 @@ IF (!($sharedFolder -eq "none"))
 }
 reportSites($targets)
 
-Write-Output 'Ran for $durationInteger minutes.'
+
