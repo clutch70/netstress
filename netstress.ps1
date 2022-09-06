@@ -40,7 +40,7 @@ IF (!($sharedFolder -eq 'none'))
 
 }
 
-#$durationInteger = $durationMinutes
+$durationInteger = $durationMinutes
 $durationMinutes = New-TimeSpan -Minutes $durationMinutes
 IF (Test-Path -Path $PSScriptRoot\$targetsFile)
 {
@@ -340,3 +340,5 @@ IF (!($sharedFolder -eq "none"))
     reportFiles($targets)
 }
 reportSites($targets)
+
+Write-Output "Ran for $durationInteger minutes."
