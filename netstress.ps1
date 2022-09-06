@@ -21,7 +21,11 @@ param ($sharedFolder="none", $durationMinutes=30, [Switch]$Verbose=$False, [Swit
 
 $templateTargets = "targets-template.json"
 $targetsFile = "targets.json"
-$files = Get-ChildItem $PSScriptRoot\files
+IF (!($sharedFolder -eq 'none'))
+{
+    $files = Get-ChildItem $PSScriptRoot\files
+}
+
 #$durationInteger = $durationMinutes
 $durationMinutes = New-TimeSpan -Seconds $durationMinutes
 IF (Test-Path -Path $PSScriptRoot\$targetsFile)
@@ -278,9 +282,7 @@ IF ($updateFiles)
 
 IF ($getSiteContent)
 {
-    $req = Invoke-WebRequest -UseBasicParsing -UserAgent ([Microsoft.PowerShell.Commands.PSUserAgent]::FireFox) -URI $testSite
-    $req.content
-    exit
+    $req = Invoke-WebRequest -UseBasicParsing 
 }
 
 Function webLoop
