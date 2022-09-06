@@ -32,7 +32,14 @@ IF (Test-Path -Path $PSScriptRoot\$targetsFile)
 {
     $targets = Get-Content -raw $PSScriptRoot\$targetsFile | ConvertFrom-Json
 }ELSE{
-    $targets = Get-Content -raw $PSScriptRoot\$templateTargets | ConvertFrom-Json
+    Try{
+        (Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/clutch70/netstress/master/targets-template.json).content | Out-File $env:TEMP\targets-template-test.json -ErrorAction Stop
+    }catch{
+        Write-Output "Failed to stage targets-template.json!!! Create your own targets.json in the same folder as the script or troubleshoot downloading of targets-template.json."
+        exit
+    }
+
+    $targets = Get-Content -raw $env:TEMP\targets-template-test.json | ConvertFrom-Json
 }
 #$targets = Get-Content -raw $PSScriptRoot\$targetsFile | ConvertFrom-Json
 $totalShareAttempts = 0
