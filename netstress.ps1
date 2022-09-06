@@ -228,7 +228,7 @@ Function testSites{
 
 Function reportFiles
 {
-    param($targets,$durationInteger)
+    param($targets)
     Write-Output "`n"
     Write-Output "======================================="
     Write-Output "   DISPLAYING SMB COPY TEST RESULTS"
@@ -259,14 +259,12 @@ Function reportFiles
         $totalShareAttempts = $copyUpAttempts + $copyDownAttempts
         Write-Output "Total number of attempts: $totalShareAttempts"
         Write-Output "`n"
-        Write-Output 'Ran for $durationInteger minutes.'
-        Write-Output "`n"
     }
 }
 
 Function reportSites
 {
-    param($targets,$durationInteger)
+    param($targets)
         Write-Output "`n"
     Write-Output "======================================="
     Write-Output "     DISPLAYING HTTP TEST RESULTS"
@@ -287,8 +285,6 @@ Function reportSites
         $rate = ($success / $attempts) * 100
         Write-Output "Site Access Success Rate: $rate%"
         Write-Output "Total number of attempts: $attempts"
-        Write-Output "`n"
-        Write-Output 'Ran for $durationInteger minutes.'
         Write-Output "`n"
     }
 }
@@ -341,8 +337,10 @@ while ($sw.elapsed -lt $durationMinutes)
 
 IF (!($sharedFolder -eq "none"))
 {
-    reportFiles($targets,$durationInteger)
+    reportFiles($targets)
 }
-reportSites($targets,$durationInteger)
+reportSites($targets)
 
+Write-Output 'Ran for $durationInteger minutes.'
+exit
 
