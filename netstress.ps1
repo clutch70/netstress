@@ -228,7 +228,7 @@ Function testSites{
 
 Function reportFiles
 {
-    param($targets)
+    param($targets,$durationInteger)
     Write-Output "`n"
     Write-Output "======================================="
     Write-Output "   DISPLAYING SMB COPY TEST RESULTS"
@@ -266,7 +266,7 @@ Function reportFiles
 
 Function reportSites
 {
-    param($targets)
+    param($targets,$durationInteger)
         Write-Output "`n"
     Write-Output "======================================="
     Write-Output "     DISPLAYING HTTP TEST RESULTS"
@@ -341,8 +341,8 @@ while ($sw.elapsed -lt $durationMinutes)
 
 IF (!($sharedFolder -eq "none"))
 {
-    reportFiles($targets)
+    reportFiles($targets,$durationInteger)
 }
-reportSites($targets)
+reportSites($targets,$durationInteger)
 
 
